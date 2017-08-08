@@ -65,8 +65,6 @@ class Jogo:
 			else:
 				if self.matriz_jogadores[linha][coluna].lower() == self.jogadores[self.turno % 2]:
 					self.cedula_selecionada = [linha, coluna]
-		elif self.status == "game over":
-			print "game over"
 
 	# VERIFICANDO SE UM MOVIMENTO REALIZADO PELO JOGADOR É VÁLIDO
 	def is_movimento_valido(self, jogador, localizacao_cedula, linha_destino, coluna_destino):
@@ -123,7 +121,7 @@ class Jogo:
 		jogador = self.jogadores[self.turno % 2]
 		index = self.jogadores.index(jogador)
 
-		array = [jogador, '-', jogador.upper()]
+		array = [jogador.lower(), jogador.upper(), '-']
 
 		if self.matriz_jogadores[l][c].islower() and self.matriz_jogadores[l][c] == jogador and \
 		self.turno % 2 == index:
@@ -174,6 +172,7 @@ class Jogo:
 				if conta_linha - 1 < 0 or conta_coluna - 1 < 0: break
 				else:
 					if self.matriz_jogadores[conta_linha - 1][conta_coluna - 1] not in array:
+						print 'chegou'
 						l_x = conta_linha - 1
 						l_c = conta_coluna - 1
 
@@ -365,14 +364,8 @@ class Jogo:
 			self.cedula_selecionada = None
 			self.proximo_turno()
 		vencedor = self.verifica_vencedor()
-		
-		if vencedor is None:
-			print "Vez de %s" % self.jogadores[self.turno % 2]
-		elif vencedor == 'empate':
-			print "empate"
-			self.status = 'game over'
-		else:
-			print "%s venceu! Clique para voltar ao menu" % vencedor
+
+		if vencedor != None:
 			self.status = 'game over'
 
 	# PRÓXIMO TURNO
