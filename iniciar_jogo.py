@@ -365,6 +365,7 @@ class Jogo:
 			self.cedula_selecionada = None
 			self.proximo_turno()
 		vencedor = self.verifica_vencedor()
+		
 		if vencedor is None:
 			print "Vez de %s" % self.jogadores[self.turno % 2]
 		elif vencedor == 'empate':
