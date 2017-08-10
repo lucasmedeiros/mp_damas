@@ -480,11 +480,9 @@ class Jogo:
 							pygame.draw.circle(display, AZUL, (x, y), 5, 0)
 
 		fonte = pygame.font.Font(None, 20)
-		x, o = 0, 0
-
-		for i in self.matriz_jogadores:
-			x += i.count('x')
-			o += i.count('o')
+		
+		x = sum([contador.count('x') + contador.count('X') for contador in self.matriz_jogadores])
+		o = sum([contador.count('o') + contador.count('O') for contador in self.matriz_jogadores])
 
 		if self.status != 'game over':
 
