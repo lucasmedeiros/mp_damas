@@ -388,10 +388,13 @@ class Jogo:
 			return 'empate'
 
 		if self.cedula_selecionada:
-			if x == 1 and not self.movimentos_possiveis(self.cedula_selecionada)[0] and self.turno % 2 == 0:
-				return 'o'
-			if o == 1 and not self.movimentos_possiveis(self.cedula_selecionada)[0] and self.turno % 2 == 1:
-				return 'x'
+			if not self.movimentos_possiveis(self.cedula_selecionada)[0]:
+				if x == 1 and self.turno % 2 == 0:
+					return 'o'
+				if o == 1 and self.turno % 2 == 1:
+					return 'x'
+				if x != 0 and o != 0:
+					return 'empate'
 
 		return None
 
