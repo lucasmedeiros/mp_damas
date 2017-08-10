@@ -110,6 +110,13 @@ class Jogo:
 
 		return todos
 
+	def existe_possivel(self):
+		for l in range(len(self.matriz_jogadores)):
+			for c in range(len(self.matriz_jogadores[l])):
+				if self.movimentos_possiveis((l, c))[0]:
+					return True
+		return False
+
 	# RETORNA OS MOVIMENTOS OBRIGATÓRIOS DE UMA PEÇA QUE PODE SER JOGADA EM DETERMINADO TURNO
 	def movimento_obrigatorio(self, localizacao_cedula):
 		obrigatorios = []
@@ -172,7 +179,6 @@ class Jogo:
 				if conta_linha - 1 < 0 or conta_coluna - 1 < 0: break
 				else:
 					if self.matriz_jogadores[conta_linha - 1][conta_coluna - 1] not in array:
-						print 'chegou'
 						l_x = conta_linha - 1
 						l_c = conta_coluna - 1
 
@@ -352,16 +358,18 @@ class Jogo:
 		linha_atual = localizacao_cedula[0]
 		coluna_atual = localizacao_cedula[1]
 		char = self.matriz_jogadores[linha_atual][coluna_atual]
+
 		self.matriz_jogadores[linha_destino][coluna_destino] = char
 		self.matriz_jogadores[linha_atual][coluna_atual] = '-'
+
 		if (jogador == 'x' and linha_destino == 7) or (jogador == 'o' and linha_destino == 0):
 			self.matriz_jogadores[linha_destino][coluna_destino] = char.upper()
-			self.cedula_selecionada = None
-			self.proximo_turno()
+
 		if pulo:
 			self.matriz_jogadores[pulo[0]][pulo[1]] = '-'
 			self.cedula_selecionada = [linha_destino, coluna_destino]
 			self.pulando = True
+
 		else:
 			self.cedula_selecionada = None
 			self.proximo_turno()
@@ -395,8 +403,10 @@ class Jogo:
 					return 'o'
 				if o == 1 and self.turno % 2 == 1:
 					return 'x'
-				if x != 0 and o != 0:
-					return 'empate'
+
+		if not self.existe_possivel():
+			return 'empate'
+
 
 		return None
 
