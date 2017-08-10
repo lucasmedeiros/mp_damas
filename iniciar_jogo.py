@@ -374,14 +374,22 @@ class Jogo:
 
 	# VERIFICA O VENCEDOR
 	def verifica_vencedor(self):
+
 		x = sum([contador.count('x') + contador.count('X') for contador in self.matriz_jogadores])
-		if x == 0:
-			return 'o'
 		o = sum([contador.count('o') + contador.count('O') for contador in self.matriz_jogadores])
-		if o == 0:
-			return 'x'
+
+		if (x == 0) or (x == 1 and not self.movimentos_possiveis(self.cedula_selecionada)[0]):
+			if self.turno % 2 == 0:
+				return 'o'
+
+
+		if (o == 0) or (o == 1 and not self.movimentos_possiveis(self.cedula_selecionada)[0]):
+			if self.turno % 2 == 1:
+				return 'x'
+
 		if x == 1 and o == 1:
 			return 'empate'
+		
 		return None
 
 
