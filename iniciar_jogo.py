@@ -39,9 +39,9 @@ class Jogo:
 		self.jogadores = ('x', 'o')
 		self.cedula_selecionada = None
 		self.pulando = False
-		self.matriz_jogadores = [['x','-','x','-','x','-','x','-'],
+		self.matriz_jogadores = [['x','-','-','-','x','-','x','-'],
 							    ['-','x','-','x','-','x','-','x'],
-				  			    ['x','-','x','-','x','-','x','-'],
+				  			    ['o','-','x','-','x','-','x','-'],
 							    ['-','-','-','-','-','-','-','-'],
 							    ['-','-','-','-','-','-','-','-'],
 							    ['-','o','-','o','-','o','-','o'],
@@ -173,7 +173,8 @@ class Jogo:
 
 		elif self.matriz_jogadores[l][c].isupper() and self.matriz_jogadores[l][c] == jogador.upper() and \
 		self.turno % 2 == index:
-			if not self.pulando and (jogador.lower() == 'x' and self.cedula_selecionada[0] != 7) or (jogador.lower() == 'o' and self.cedula_selecionada[0] != 0):
+
+			if not self.pulando and (jogador.lower() == 'x' and l != 7) or (jogador.lower() == 'o' and l != 0):
 				conta_linha = l
 				conta_coluna = c
 				while True:
@@ -363,13 +364,16 @@ class Jogo:
 		self.matriz_jogadores[linha_destino][coluna_destino] = char
 		self.matriz_jogadores[linha_atual][coluna_atual] = '-'
 
-		if (jogador == 'x' and linha_destino == 7) or (jogador == 'o' and linha_destino == 0):
-			self.matriz_jogadores[linha_destino][coluna_destino] = char.upper()
-
 		if pulo:
 			self.matriz_jogadores[pulo[0]][pulo[1]] = '-'
 			self.cedula_selecionada = [linha_destino, coluna_destino]
 			self.pulando = True
+
+		if (jogador == 'x' and linha_destino == 7) or (jogador == 'o' and linha_destino == 0):
+			if not self.pulando:
+				self.matriz_jogadores[linha_destino][coluna_destino] = char.upper()
+			elif not self.movimentos_possiveis((linha_destino, coluna_destino))[0]:
+				self.matriz_jogadores[linha_destino][coluna_destino] = char.upper()
 
 		else:
 			self.cedula_selecionada = None
@@ -722,7 +726,6 @@ def loop_jogo():
 				quit()
 			if evento.type == pygame.MOUSEBUTTONDOWN:
 				jogo.avalia_clique(pygame.mouse.get_pos())
-
 
 		display.fill(PRETO)
 		jogo.desenha()
