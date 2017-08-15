@@ -173,109 +173,110 @@ class Jogo:
 
 		elif self.matriz_jogadores[l][c].isupper() and self.matriz_jogadores[l][c] == jogador.upper() and \
 		self.turno % 2 == index:
-			conta_linha = l
-			conta_coluna = c
-			while True:
-				if conta_linha - 1 < 0 or conta_coluna - 1 < 0: break
-				else:
-					if self.matriz_jogadores[conta_linha - 1][conta_coluna - 1] not in array:
-						l_x = conta_linha - 1
-						l_c = conta_coluna - 1
+			if not self.pulando:
+				conta_linha = l
+				conta_coluna = c
+				while True:
+					if conta_linha - 1 < 0 or conta_coluna - 1 < 0: break
+					else:
+						if self.matriz_jogadores[conta_linha - 1][conta_coluna - 1] not in array:
+							l_x = conta_linha - 1
+							l_c = conta_coluna - 1
 
-						if l_x - 1 >= 0 and l_c - 1 >= 0:
-							if self.matriz_jogadores[l_x - 1][l_c - 1] == '-':
-								posicao_cedula_pulada.append((l_x, l_c))
-								while True:
-									if l_x - 1 < 0 or l_c - 1 < 0:
-										break
-									else:
-										if self.matriz_jogadores[l_x - 1][l_c - 1] == '-':
-											obrigatorios.append([l_x - 1, l_c - 1])
-										else:
+							if l_x - 1 >= 0 and l_c - 1 >= 0:
+								if self.matriz_jogadores[l_x - 1][l_c - 1] == '-':
+									posicao_cedula_pulada.append((l_x, l_c))
+									while True:
+										if l_x - 1 < 0 or l_c - 1 < 0:
 											break
-									l_x -= 1
-									l_c -= 1
-						break
-				conta_linha -= 1
-				conta_coluna -= 1
-
-			conta_linha = l
-			conta_coluna = c
-			while True:
-				if conta_linha - 1 < 0 or conta_coluna + 1 > 7: break
-				else:
-					if self.matriz_jogadores[conta_linha - 1][conta_coluna + 1] not in array:
-						l_x = conta_linha - 1
-						l_c = conta_coluna + 1
-
-						if l_x - 1 >= 0 and l_c + 1 <= 7:
-							if self.matriz_jogadores[l_x - 1][l_c + 1] == '-':
-								posicao_cedula_pulada.append((l_x, l_c))
-								while True:
-									if l_x - 1 < 0 or l_c + 1 > 7:
-										break
-									else:
-										if self.matriz_jogadores[l_x -1][l_c + 1] == '-':
-											obrigatorios.append([l_x - 1, l_c + 1])
 										else:
+											if self.matriz_jogadores[l_x - 1][l_c - 1] == '-':
+												obrigatorios.append([l_x - 1, l_c - 1])
+											else:
+												break
+										l_x -= 1
+										l_c -= 1
+							break
+					conta_linha -= 1
+					conta_coluna -= 1
+
+				conta_linha = l
+				conta_coluna = c
+				while True:
+					if conta_linha - 1 < 0 or conta_coluna + 1 > 7: break
+					else:
+						if self.matriz_jogadores[conta_linha - 1][conta_coluna + 1] not in array:
+							l_x = conta_linha - 1
+							l_c = conta_coluna + 1
+
+							if l_x - 1 >= 0 and l_c + 1 <= 7:
+								if self.matriz_jogadores[l_x - 1][l_c + 1] == '-':
+									posicao_cedula_pulada.append((l_x, l_c))
+									while True:
+										if l_x - 1 < 0 or l_c + 1 > 7:
 											break
-									l_x -= 1
-									l_c += 1
-						break
-				conta_linha -= 1
-				conta_coluna += 1
-
-			conta_linha = l
-			conta_coluna = c
-			while True:
-				if conta_linha + 1 > 7 or conta_coluna + 1 > 7: break
-				else:
-					if self.matriz_jogadores[conta_linha + 1][conta_coluna + 1] not in array:
-						l_x = conta_linha + 1
-						l_c = conta_coluna + 1
-
-						if l_x + 1 <= 7 and l_c + 1 <= 7:
-							if self.matriz_jogadores[l_x + 1][l_c + 1] == '-':
-								posicao_cedula_pulada.append((l_x, l_c))
-								while True:
-									if l_x + 1 > 7 or l_c + 1 > 7:
-										break
-									else:
-										if self.matriz_jogadores[l_x + 1][l_c + 1] == '-':
-											obrigatorios.append([l_x + 1, l_c + 1])
 										else:
+											if self.matriz_jogadores[l_x -1][l_c + 1] == '-':
+												obrigatorios.append([l_x - 1, l_c + 1])
+											else:
+												break
+										l_x -= 1
+										l_c += 1
+							break
+					conta_linha -= 1
+					conta_coluna += 1
+
+				conta_linha = l
+				conta_coluna = c
+				while True:
+					if conta_linha + 1 > 7 or conta_coluna + 1 > 7: break
+					else:
+						if self.matriz_jogadores[conta_linha + 1][conta_coluna + 1] not in array:
+							l_x = conta_linha + 1
+							l_c = conta_coluna + 1
+
+							if l_x + 1 <= 7 and l_c + 1 <= 7:
+								if self.matriz_jogadores[l_x + 1][l_c + 1] == '-':
+									posicao_cedula_pulada.append((l_x, l_c))
+									while True:
+										if l_x + 1 > 7 or l_c + 1 > 7:
 											break
-									l_x += 1
-									l_c += 1
-						break
-				conta_linha += 1
-				conta_coluna += 1
-
-			conta_linha = l
-			conta_coluna = c
-			while True:
-				if conta_linha + 1 > 7 or conta_coluna - 1 < 0: break
-				else:
-					if self.matriz_jogadores[conta_linha + 1][conta_coluna - 1] not in array:
-						l_x = conta_linha + 1
-						l_c = conta_coluna - 1
-
-						if l_x + 1 <= 7 and l_c - 1 >= 0:
-							if self.matriz_jogadores[l_x + 1][l_c - 1] == '-':
-								posicao_cedula_pulada.append((l_x, l_c))
-								while True:
-									if l_x + 1 > 7 or l_c - 1 < 0:
-										break
-									else:
-										if self.matriz_jogadores[l_x + 1][l_c - 1] == '-':
-											obrigatorios.append([l_x + 1, l_c - 1])
 										else:
+											if self.matriz_jogadores[l_x + 1][l_c + 1] == '-':
+												obrigatorios.append([l_x + 1, l_c + 1])
+											else:
+												break
+										l_x += 1
+										l_c += 1
+							break
+					conta_linha += 1
+					conta_coluna += 1
+
+				conta_linha = l
+				conta_coluna = c
+				while True:
+					if conta_linha + 1 > 7 or conta_coluna - 1 < 0: break
+					else:
+						if self.matriz_jogadores[conta_linha + 1][conta_coluna - 1] not in array:
+							l_x = conta_linha + 1
+							l_c = conta_coluna - 1
+
+							if l_x + 1 <= 7 and l_c - 1 >= 0:
+								if self.matriz_jogadores[l_x + 1][l_c - 1] == '-':
+									posicao_cedula_pulada.append((l_x, l_c))
+									while True:
+										if l_x + 1 > 7 or l_c - 1 < 0:
 											break
-									l_x += 1
-									l_c -= 1
-						break
-				conta_linha += 1
-				conta_coluna -= 1
+										else:
+											if self.matriz_jogadores[l_x + 1][l_c - 1] == '-':
+												obrigatorios.append([l_x + 1, l_c - 1])
+											else:
+												break
+										l_x += 1
+										l_c -= 1
+							break
+					conta_linha += 1
+					conta_coluna -= 1
 
 		return obrigatorios, posicao_cedula_pulada
 
