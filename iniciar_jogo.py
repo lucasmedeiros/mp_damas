@@ -365,8 +365,6 @@ class Jogo:
 		self.matriz_jogadores[linha_atual][coluna_atual] = '-'
 
 		if pulo:
-			self.matriz_jogadores[pulo[0]][pulo[1]] = '-'
-			self.cedula_selecionada = [linha_destino, coluna_destino]
 			self.pulando = True
 
 		if (jogador == 'x' and linha_destino == 7) or (jogador == 'o' and linha_destino == 0):
@@ -374,6 +372,11 @@ class Jogo:
 				self.matriz_jogadores[linha_destino][coluna_destino] = char.upper()
 			elif not self.movimentos_possiveis((linha_destino, coluna_destino))[0]:
 				self.matriz_jogadores[linha_destino][coluna_destino] = char.upper()
+
+		if pulo:
+			self.matriz_jogadores[pulo[0]][pulo[1]] = '-'
+			self.cedula_selecionada = [linha_destino, coluna_destino]
+			self.pulando = True
 
 		else:
 			self.cedula_selecionada = None
