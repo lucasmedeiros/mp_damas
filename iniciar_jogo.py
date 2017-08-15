@@ -39,9 +39,9 @@ class Jogo:
 		self.jogadores = ('x', 'o')
 		self.cedula_selecionada = None
 		self.pulando = False
-		self.matriz_jogadores = [['x','-','-','-','x','-','x','-'],
+		self.matriz_jogadores = [['x','-','x','-','x','-','x','-'],
 							    ['-','x','-','x','-','x','-','x'],
-				  			    ['o','-','x','-','x','-','x','-'],
+				  			    ['x','-','x','-','x','-','x','-'],
 							    ['-','-','-','-','-','-','-','-'],
 							    ['-','-','-','-','-','-','-','-'],
 							    ['-','o','-','o','-','o','-','o'],
