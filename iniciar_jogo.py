@@ -173,7 +173,7 @@ class Jogo:
 
 		elif self.matriz_jogadores[l][c].isupper() and self.matriz_jogadores[l][c] == jogador.upper() and \
 		self.turno % 2 == index:
-			if not self.pulando:
+			if not self.pulando and (jogador.lower() == 'x' and self.cedula_selecionada[0] != 7) or (jogador.lower() == 'o' and self.cedula_selecionada[0] != 0):
 				conta_linha = l
 				conta_coluna = c
 				while True:
