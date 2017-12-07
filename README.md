@@ -17,6 +17,6 @@ Funcionalidades:
 - Movimentação das peças (100%);
 - Capturas (100%);
 - Promoção de uma peça à dama (100%);
-- Contagem dos turnos;
-- Placar;
+- Contagem dos turnos (100%);
+- Placar (100%);
 - Condições de vitória (100%).
