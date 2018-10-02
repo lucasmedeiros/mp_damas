@@ -9,6 +9,7 @@ from pygame.locals import *
 pygame.init()
 
 # VARIÁVEIS DE VALOR CONSTANTE
+
 LARGURA = 800
 ALTURA = 600
 
@@ -24,6 +25,7 @@ COR_FUNDO = (54, 54, 54)
 COR_TABULEIRO = (0, 31, 0)
 
 # INICIANDO PROGRAMAÇÃO DO DISPLAY
+
 display = pygame.display.set_mode((800, 600))
 pygame.display.set_caption('Jogo de Damas')
 pygame.font.init()
@@ -34,7 +36,7 @@ clock = pygame.time.Clock()
 class Jogo:
 	# Classe para tomar conta do status do jogo
 	def __init__(self):
-		self.status = 'jogando'
+		self.status = 'Jogando'
 		self.turno = 1
 		self.jogadores = ('x', 'o')
 		self.cedula_selecionada = None
@@ -48,13 +50,15 @@ class Jogo:
 							    ['o','-','o','-','o','-','o','-'],
 							    ['-','o','-','o','-','o','-','o']]
 
+	
 	def avalia_clique(self, pos):
-		if self.status == "jogando":
+		turno = self.turno % 2
+		if self.status == "Jogando":
 			linha, coluna = linha_clicada(pos), coluna_clicada(pos)
 			if self.cedula_selecionada:
-				movimento = self.is_movimento_valido(self.jogadores[self.turno % 2], self.cedula_selecionada, linha, coluna)
+				movimento = self.is_movimento_valido(self.jogadores[turno], self.cedula_selecionada, linha, coluna)
 				if movimento[0]:
-					self.jogar(self.jogadores[self.turno % 2], self.cedula_selecionada, linha, coluna, movimento[1])
+					self.jogar(self.jogadores[turno], self.cedula_selecionada, linha, coluna, movimento[1])
 				elif linha == self.cedula_selecionada[0] and coluna == self.cedula_selecionada[1]:
 					movs = self.movimento_obrigatorio(self.cedula_selecionada)
 					if movs[0] == []:
@@ -63,7 +67,7 @@ class Jogo:
 							self.proximo_turno()
 					self.cedula_selecionada = None
 			else:
-				if self.matriz_jogadores[linha][coluna].lower() == self.jogadores[self.turno % 2]:
+				if self.matriz_jogadores[linha][coluna].lower() == self.jogadores[turno]:
 					self.cedula_selecionada = [linha, coluna]
 
 	# VERIFICANDO SE UM MOVIMENTO REALIZADO PELO JOGADOR É VÁLIDO
@@ -97,6 +101,7 @@ class Jogo:
 			return True, None
 
 		return False, None
+		
 
 	# RETORNA TODOS OS MOVIMENTOS OBRIGATÓRIOS DE UM TURNO
 	def todos_obrigatorios(self):
@@ -109,7 +114,8 @@ class Jogo:
 					todos[(r, c)] = ob
 
 		return todos
-
+		
+	# RETORNA SE EXISTE UM MOVIMENTO POSSIVEL A SE FAZER COM A PEÇA
 	def existe_possivel(self):
 		for l in range(len(self.matriz_jogadores)):
 			for c in range(len(self.matriz_jogadores[l])):
@@ -384,7 +390,7 @@ class Jogo:
 		vencedor = self.verifica_vencedor()
 
 		if vencedor != None:
-			self.status = 'game over'
+			self.status = 'Game Over'
 
 	# PRÓXIMO TURNO
 	def proximo_turno(self):
@@ -403,7 +409,7 @@ class Jogo:
 			return 'x'
 
 		if x == 1 and o == 1:
-			return 'empate'
+			return 'Empate'
 
 		if self.cedula_selecionada:
 			if not self.movimentos_possiveis(self.cedula_selecionada)[0]:
@@ -413,7 +419,7 @@ class Jogo:
 					return 'x'
 
 		if not self.existe_possivel():
-			return 'empate'
+			return 'Empate'
 
 
 		return None
@@ -504,7 +510,7 @@ class Jogo:
 		x = sum([contador.count('x') + contador.count('X') for contador in self.matriz_jogadores])
 		o = sum([contador.count('o') + contador.count('O') for contador in self.matriz_jogadores])
 
-		if self.status != 'game over':
+		if self.status != 'Game Over':
 
 			surface_texto, rect_texto = text_objects("Vermelho: " + str(12 - o), fonte, VERMELHO_CLARO)
 			rect_texto.center = (650, 30)
@@ -523,7 +529,7 @@ class Jogo:
 				rect_texto.center = (700, ALTURA / 2)
 				display.blit(surface_texto, rect_texto)
 		else:
-			surface_texto, rect_texto = text_objects("Game over", fonte, AZUL)
+			surface_texto, rect_texto = text_objects("Game Over", fonte, AZUL)
 			rect_texto.center = (700, ALTURA / 3)
 			display.blit(surface_texto, rect_texto)
 
@@ -551,6 +557,7 @@ def cria_botao(msg, sqr, cor1, cor2, cor_texto, acao=None):
 	rect_texto.center = (sqr[0] + 60, sqr[1] + 20)
 	display.blit(surface_texto, rect_texto)
 
+# FUNÇÃO PARA IMPRIMIR OS CRÉDITOS
 def creditos():
 	sair = False
 	while not sair:
@@ -585,6 +592,7 @@ def creditos():
 		pygame.display.update()
 		clock.tick(15)
 
+# FUNÇÃO PARA IMPRIMIR AS REGRAS DO JOGO DE DAMAS
 def regras():
 	sair = False
 
@@ -637,6 +645,7 @@ def regras():
 		pygame.display.update()
 		clock.tick(60)
 
+# FUNÇÃO PARA IMPRIMIR A TELA DO VENCEDOR
 def tela_vencedor(vencedor):
 	sair = False
 
