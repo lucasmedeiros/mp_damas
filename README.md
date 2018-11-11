@@ -7,7 +7,7 @@ Disciplina: Programação 1 e Laboratório de Programação 1
 
 Descrição: Jogo de Damas em Python utilizando o framework Pygame
 
-Funcionalidades:
+## Funcionalidades:
 
 - Menu Inicial com as seguintes opções:
 	- Iniciar Jogo;
@@ -20,3 +20,5 @@ Funcionalidades:
 - Contagem dos turnos (100%);
 - Placar (100%);
 - Condições de vitória (100%).
+
+Vídeo: https://www.youtube.com/watch?v=Dp1vrh-itTs
